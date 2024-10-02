@@ -1,0 +1,55 @@
+---
+- block:
+
+# Drivers will fail to build correctly if the kernel headers are outdated. 
+# Sometimes the OS kernel will not match the current apt linux-headers package installed. 
+# This generally happens if the Kali OS has not been upgraded for awhile and the apt cache has.
+# To get around this we do an 'apt dist-upgrade' and then install the linux-headers package.
+# As the OS has just been upgraded, the kernel should match.
+# This can be verified by running 'uname -r' on the kali machine and `sudo apt search linux-headers-$(uname -r)`
+# For example:
+# └─$ uname -r                                 
+# 6.10.9-amd64
+# 
+# ─$ sudo apt search linux-headers-$(uname -r)
+# linux-headers-6.10.9-amd64/kali-rolling 6.10.9-1kali1 amd64
+# Future todo
+# Would make more sense to perform check if the kernel matches the headers package installed.
+# And if it matches, just install the drivers, if it does not, do the dist-upgrade and install the headers. 
+
+  - name: Update apt repositories cache
+    ansible.builtin.apt:
+      update_cache: yes
+    when: not apt_cached_updated
+
+  - name: Upgrade Kali
+    become: true
+    ansible.builtin.apt:
+      upgrade: dist
+  
+  - name: Reboot Kali
+    become: true
+    ansible.builtin.reboot:
+      reboot_timeout: 300
+
+  - name: Remove unneeded dependencies
+    become: true
+    ansible.builtin.apt:
+      autoremove: yes
+
+  - name: Install kernel headers
+    become: true
+    ansible.builtin.apt:
+      state: present
+      name:
+        - "linux-headers-{{ ansible_kernel }}"
+
+  - name: Install realtek-rtl88xxau-dkms wireless drivers
+    become: true
+    ansible.builtin.apt:
+      state: present
+      name:
+        - realtek-rtl88xxau-dkms
+      
+  tags:
+    - wireless-drivers

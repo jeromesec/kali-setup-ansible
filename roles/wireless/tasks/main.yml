@@ -1,0 +1,5 @@
+---
+- import_tasks: apt.yml
+- import_tasks: drivers.yml
+- import_tasks: rogue.yml
+- import_tasks: scripts.yml

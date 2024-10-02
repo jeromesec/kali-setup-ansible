@@ -1,0 +1,17 @@
+---
+- block:
+
+  - name: Update apt repositories cache
+    ansible.builtin.apt:
+      update_cache: yes
+    when: not apt_cached_updated
+
+  - name: Install wordlist apt packages
+    become: true
+    apt:
+      state: present
+      name:
+        - seclists
+        - payloadsallthethings
+  tags:
+    - wordlists-apt

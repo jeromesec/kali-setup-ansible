@@ -1,0 +1,8 @@
+---
+user: JeromeSec
+trusted_ssh_ip: any
+apt_cache_timeout: 3600
+shell: /bin/zsh
+go_path: "/home/{{ user }}/go/bin"
+tools_path: "/home/{{ user }}/tools"
+wordlist_path: "/home/{{ user }}/wordlists"

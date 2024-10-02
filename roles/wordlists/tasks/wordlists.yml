@@ -1,0 +1,23 @@
+---
+- block:
+
+  - name: Create wordlist directory
+    ansible.builtin.file:
+      path: "{{ wordlist_path }}"
+      state: directory
+      mode: 0755
+
+  - name: Download content_discovery wordlist from nullenc0de
+    ansible.builtin.get_url:
+      force: true
+      url: https://gist.github.com/nullenc0de/96fb9e934fc16415fbda2f83f08b28e7/raw/146f367110973250785ced348455dc5173842ee4/content_discovery_nullenc0de.txt
+      dest: "{{ wordlist_path }}/web_content_discovery.txt"
+
+  - name: Download DNS wordlist from jhaddix
+    ansible.builtin.get_url:
+      force: true
+      url: https://gist.githubusercontent.com/jhaddix/86a06c5dc309d08580a018c66354a056/raw/96f4e51d96b2203f19f6381c8c545b278eaa0837/all.txt
+      dest: "{{ wordlist_path }}/dns_all.txt"
+
+  tags:
+    - wordlists

@@ -1,0 +1,25 @@
+---
+- block:
+
+  - name: Update apt repositories cache
+    ansible.builtin.apt:
+      update_cache: yes
+    when: not apt_cached_updated
+
+  - name: Install web apt packages
+    become: true
+    ansible.builtin.apt:
+      state: present
+      name:
+        - dirsearch
+        - ffuf
+        - gobuster
+        - hydra
+        - nikto
+        - sqlmap
+        - wafw00f
+        - whatweb
+        - wpscan
+
+  tags:
+    - web-apt

@@ -1,0 +1,10 @@
+---
+- name: 'Kali Setup via Ansible'
+  hosts: kalihosts
+  gather_facts: yes
+  roles:
+    - common
+    - wordlists
+    - network
+    - wireless
+    - web

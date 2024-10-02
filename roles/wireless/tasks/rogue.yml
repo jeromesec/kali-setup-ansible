@@ -1,0 +1,19 @@
+---
+- block:
+
+  - name: Cloning the Rogue repository
+    ansible.builtin.git:
+      repo: https://github.com/InfamousSYN/rogue
+      dest: "{{ tools_path }}/rogue"
+      update: yes
+
+  - name: Running the Rogue install script
+    become: true
+    ansible.builtin.expect:
+      echo: true
+      command: python3 {{ tools_path }}/rogue/install.py
+      responses:
+        "(.*)Do you want update your package list(.*)": "N"
+
+  tags:
+    - wireless-rogue

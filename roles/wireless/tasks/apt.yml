@@ -1,0 +1,23 @@
+---
+- block:
+
+  - name: Update apt repositories cache
+    ansible.builtin.apt:
+      update_cache: yes
+    when: not apt_cached_updated
+
+  - name: Install wireless apt packages
+    become: true
+    ansible.builtin.apt:
+      state: present
+      name:
+        - aircrack-ng
+        - hashcat
+        - hcxdumptool
+        - hcxtools
+        - macchanger
+        - tcpdump
+        - wireshark
+
+  tags:
+    - wireless-apt

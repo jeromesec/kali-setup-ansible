@@ -1,0 +1,39 @@
+---
+- block:
+
+  - name: Update apt repositories cache
+    ansible.builtin.apt:
+      update_cache: yes
+    when: not apt_cached_updated
+
+  - name: Install network apt packages
+    become: true
+    ansible.builtin.apt:
+      state: present
+      name:
+        - amass
+        - certipy-ad
+        - enum4linux
+        - exploitdb
+        - hashcat
+        - hping3
+        - hydra
+        - impacket-scripts
+        - macchanger
+        - masscan
+        - mitm6
+        - mitmproxy
+        - nbtscan
+        - netcat-traditional
+        - netexec
+        - nmap
+        - nfs-common
+        - metasploit-framework
+        - responder
+        - smbmap
+        - testssl.sh
+        - tcpdump
+        - wireshark
+
+  tags:
+    - network-apt

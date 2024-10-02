@@ -1,0 +1,21 @@
+---
+- block:
+
+  - name: "Copy monitor-mode.sh script to {{ tools_path }}/wifi/"
+    copy:
+      src: ./files/monitor-mode.sh
+      dest: "{{ tools_path }}/monitor-mode.sh"
+      owner: "{{ user }}"
+      group: "{{ user }}"
+      mode: '755'
+
+  - name: "Copy reset-adapter.sh script to {{ tools_path }}/wifi/"
+    copy:
+      src: ./files/monitor-mode.sh
+      dest: "{{ tools_path }}/reset-adapter.sh"
+      owner: "{{ user }}"
+      group: "{{ user }}"
+      mode: '755'
+
+  tags:
+    - wireless-scripts
