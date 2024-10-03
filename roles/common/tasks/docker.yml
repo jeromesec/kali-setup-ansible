@@ -1,0 +1,15 @@
+---
+- block:
+
+  - name: Install docker
+    become: true
+    ansible.builtin.apt:
+      update_cache: yes
+      state: present
+      name:
+        - docker.io
+        - docker-compose
+
+  - name: Enable docker service
+    become: true
+    ansible.builtin.command: systemctl enable docker --now

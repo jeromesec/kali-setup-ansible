@@ -1,5 +1,5 @@
 ---
-user: JeromeSec
+user: jerome
 trusted_ssh_ip: any
 apt_cache_timeout: 3600
 shell: /bin/zsh

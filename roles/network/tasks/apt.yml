@@ -14,7 +14,9 @@
         - amass
         - certipy-ad
         - enum4linux
+        - eyewitness
         - exploitdb
+        - gowitness
         - hashcat
         - hping3
         - hydra
@@ -34,6 +36,7 @@
         - testssl.sh
         - tcpdump
         - wireshark
+        - witnessme
 
   tags:
     - network-apt
