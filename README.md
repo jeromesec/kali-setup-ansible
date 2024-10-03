@@ -12,8 +12,10 @@ Kali 2024.3 (Installer edition)
 | Tool | Description |
 |-|-|
 | common | Installation of common configuration tools and dependencies |
+| network | Installation of commonly used internal and external network penetration testing tools |
+| web | Installation of commonly used web application penetration testing tools |
+| wireless | Installation of commonly used wireless tools penetration testing tools and drivers. Drivers are realtek-rtl88xxau and should work with ALFA AWUS036ACH and AWUS1900 wireless adapters. |
 | wordlists | Download payloads and wordlists |
-| wireless | Install wireless tools and drivers. Drivers are realtek-rtl88xxau and should work with ALFA AWUS036ACH and AWUS1900 wireless adapters. |
 
 ## How to use
 1. Modify the Kali IP address in `inventory.ini` file. For example:
@@ -35,7 +37,7 @@ Kali 2024.3 (Installer edition)
     ...
     ```
 
-2. Modify the `user` in the `./group_vars/all_vars` file. An assumption has been made that the same user will be used for Ansibile and using the Kali machine.
+2. Modify the `user` in the `./group_vars/all_vars` file. An assumption has been made that the same user will be used for Ansible and using the Kali machine.
 
     You can also change the tools and wordlists path in the same file if you do not want them to be installed in the home directory.
 3. Git clone the repo `git clone https://github.com/jeromesec/ansible-pentestvm.git`
