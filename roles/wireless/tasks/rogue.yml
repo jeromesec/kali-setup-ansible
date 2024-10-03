@@ -1,6 +1,20 @@
 ---
 - block:
 
+# Due to changes in Kali 2024.3 in how pip is handled, some dependencies in rogue may not install
+# As a temporary fix, will install the required python3 dependencies via apt
+# Once pip is definately removed or cannot be installed manually I will put an appropriate fix
+# Could either manually patch the installer or see about running the tool in a virtual environment
+  - name: Installing Rogue python dependencies 
+    become: true
+    ansible.builtin.apt:
+      update_cache: yes
+      state: present
+      name:
+        - python3-tqdm
+        - python3-netifaces
+        - python3-netaddr
+
   - name: Cloning the Rogue repository
     ansible.builtin.git:
       repo: https://github.com/InfamousSYN/rogue
