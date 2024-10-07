@@ -1,0 +1,17 @@
+---
+- name: 'Kali Setup via Ansible'
+  hosts: kalihosts
+  gather_facts: yes
+  vars:
+    paid_software: false
+  roles:
+    - role: common
+    - role: wordlists
+    - role: network
+    - role: wireless
+    - role: web
+    # Paid for software
+    - role: nessus
+      when: paid_software | bool
+    - role: burppro
+      when: paid_software | bool

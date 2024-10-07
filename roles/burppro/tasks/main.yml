@@ -1,0 +1,50 @@
+---
+- block:
+
+  - name: Check if Burp Suite Pro exists
+    stat: 
+      path: /opt/BurpSuitePro/BurpSuitePro
+    register: burp_pro
+
+  - name: Download latest version of Burp Suite Pro
+    ansible.builtin.get_url:
+      force: true
+      url: https://portswigger-cdn.net/burp/releases/download?product=pro&type=Linux
+      dest: /tmp/BurpSuitePro.sh
+      owner: "{{ user }}"
+      group: "{{ user }}"
+      mode: '755'
+    when: not burp_pro.stat.exists
+
+  - name: "Copy var file for automated install"
+    copy:
+      src: ./files/response.varfile
+      dest: /tmp/response.varfile
+      owner: "{{ user }}"
+      group: "{{ user }}"
+      mode: '755'
+    when: not burp_pro.stat.exists
+
+  - name: Install latest version of Burp Suite Pro
+    become: true
+    ansible.builtin.command: /tmp/BurpSuitePro.sh -q -varfile /tmp/response.varfile
+    when: not burp_pro.stat.exists
+
+  - name: Remove Burp Suite Pro installation files
+    ansible.builtin.file:
+      path: "{{ item }}"
+      state: absent
+    when: not burp_pro.stat.exists
+    with_items: 
+      - /tmp/BurpSuitePro.sh
+      - /tmp/response.varfile
+
+  - name: Remove Burp Suite Community Edition
+    become: true
+    ansible.builtin.apt:
+      state: absent
+      name: burpsuite
+    when: not burp_pro.stat.exists
+
+  tags:
+    - BurpSuitePro

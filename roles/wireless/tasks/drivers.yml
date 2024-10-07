@@ -26,11 +26,6 @@
     become: true
     ansible.builtin.apt:
       upgrade: dist
-  
-  - name: Reboot Kali
-    become: true
-    ansible.builtin.reboot:
-      reboot_timeout: 300
 
   - name: Remove unneeded dependencies
     become: true

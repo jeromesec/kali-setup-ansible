@@ -8,7 +8,7 @@
 
   - name: Install wordlist apt packages
     become: true
-    apt:
+    ansible.builtin.apt:
       state: present
       name:
         - seclists
