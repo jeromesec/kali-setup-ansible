@@ -30,13 +30,44 @@ The Nessus web server has been configured to only listen to the localhost so it 
 ### Burp Suite Professional
 You will need to go through the process of registering Burp Suite Professional to use the software. In the future this will be automated in an update (if possible).
 
+## How to use this playbook locally
+
+**Step 1**: Install ansible on the localhost:
+```
+sudo apt install ansible
+```
+
+**Step 2**: Git clone repo
+```
+git clone https://github.com/jeromesec/kali-setup-ansible.git
+```
+
+**Step 3**: Change into the playbook directory
+```
+cd kali-setup-ansible
+```
+
+**Step 4**: Run the playbook:
+```
+sudo ansible-playbook -i localhost.ini local.yml
+```
+**Note**: To include the installation of paid for commercial software run the following command instead of the above command:
+```
+sudo ansible-playbook --extra-vars "paid_software=true" -i localhost.ini local.yml
+```
+
 ## How to use this playbook from an Ansible Controller
 **Step 1**: Git clone repo:
 ```
 git clone https://github.com/jeromesec/kali-setup-ansible.git
 ```
 
-**Step 2**: Modify the Kali IP address in `inventory.ini` file. For example:
+**Step 2**: Change into the playbook directory
+```
+cd kali-setup-ansible
+```
+
+**Step 3**: Modify the Kali IP address in `./inventory.ini` file. For example:
 ```
 [kalihosts]
 10.10.10.10
@@ -55,41 +86,21 @@ git clone https://github.com/jeromesec/kali-setup-ansible.git
 ...
 ```
 
-**Step 3**: Modify the `user` in the `./group_vars/all_vars` file. An assumption has been made that the same user will be used for Ansible and using the Kali machine.
+**Step 4**: Modify the `user` in the `./group_vars/all_vars` file. An assumption has been made that the same user will be used for Ansible and using the Kali machine.
 
 **Note**: You can also change the tools and wordlists path in the same file if you do not want them to be installed in the home directory.
 
-**Step 4**: Run the playbook:
+**Step 5**: Run the playbook:
 
 **Note**: You will be prompted for the sudo password.
 ```
-ansible-playbook -K -i inventory.ini site.yml
+sudo ansible-playbook -K -i inventory.ini site.yml
 ``` 
 
 **Note**:To include the installation of paid for commercial software run the following command instead of the above command:
 ```
-ansible-playbook --extra-vars "paid_software=true" -K -i inventory.ini site.yml
+sudo ansible-playbook --extra-vars "paid_software=true" -K -i inventory.ini site.yml
 ````
-
-## How to use this playbook locally
-
-**Step 1**: Install ansible on the localhost:
-```
-sudo apt install ansible:
-```
-**Step 2**: Git clone repo
-```
-git clone https://github.com/jeromesec/kali-setup-ansible.git
-```
-**Step 3**: Run the playbook:
-```
-ansible-playbook -i localhost.ini local.yml
-```
-**Note**: To include the installation of paid for commercial software run the following command instead of the above command:
-```
-ansible-playbook --extra-vars "paid_software=true" -i localhost.ini local.yml
-```
-
 
 ## Author
 JeromeSec
