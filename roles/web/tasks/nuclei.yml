@@ -4,13 +4,5 @@
   - name: Install nuclei using Go
     ansible.builtin.command: go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 
-  - name: Verify nuclei installation
-    ansible.builtin.command: "md5sum {{ go_path }}/nuclei"
-    register: nuclei_md5sum
-
-  - name: Display nuclei file
-    debug:
-      msg: "Nuclei md5sum: {{ nuclei_md5sum.stdout }}"
-
   tags:
     - web-nuclei
